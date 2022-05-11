@@ -4,12 +4,12 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.5.101.99:3306/largeMonitor_dev?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/largeMonitor_dev?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
-    password: Clw-123456
+    password: root
   redis:
     database: 1
-    host: 10.5.101.99
+    host: 127.0.0.1
     port: 11003
     password: 123456
     jedis:
