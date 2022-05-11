@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--自定义变量，可通过命令行传递：日志位置-->
+    <property name="LOG_HOME" value="/logs" />
+    <!--自定义变量，可通过命令行传递：root 日志级别-->
+    <property name="LOG_LEVEL" value="INFO" />
+
+    <!--控制台日志， 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度,%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--debug 级别 文件日志，专门用来输出每个图层的日志内容 按照每天生成日志文件 -->
+    <appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>./${LOG_HOME}/debug/large-monitor.debug.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--            <totalSizeCap>20GB</totalSizeCap>-->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>{msg:%msg}%n</pattern>
+        </encoder>
+        <!--记录info级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--info 级别 文件日志， 按照每天生成日志文件 -->
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>./${LOG_HOME}/info/large-monitor.info.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--            <totalSizeCap>20GB</totalSizeCap>-->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!--记录info级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--error 级别 文件日志， 按照每天生成日志文件 -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>./${LOG_HOME}/error/large-monitor.error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--       <totalSizeCap>20GB</totalSizeCap>-->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!--记录error级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <!--mybatis log configure-->
+        <logger name="com.apache.ibatis" level="TRACE"/>
+        <logger name="java.sql.Connection" level="DEBUG"/>
+        <logger name="java.sql.Statement" level="DEBUG"/>
+        <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+        <logger name="com.tdt.tile.clip" level="INFO" />
+<!--    <logger name="org.mongodb.driver.connection" level="WARN"></logger>-->
+<!--    <logger name="org.mongodb.driver" level="OFF"></logger>-->
+<!--    <logger name="com.jfqqqqq.test.log.LayerCostLogger" level="${LOG_LEVEL}">-->
+<!--        <appender-ref ref="FILE_DEBUG" />-->
+<!--    </logger>-->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE_DEBUG"/>
+        <appender-ref ref="FILE_INFO"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
+
+</configuration>
