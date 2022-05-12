@@ -9,4 +9,8 @@ public class CacheKeyUtil {
         return String.format("large:monitor:test:%d", id);
     }
 
+    public static String captchaKey(String uuid) {
+        return String.format("monomer:captcha:%s", uuid);
+    }
+
 }

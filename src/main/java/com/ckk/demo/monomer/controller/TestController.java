@@ -8,11 +8,13 @@ import com.ckk.demo.monomer.common.utils.PageUtil;
 import com.ckk.demo.monomer.common.utils.RedisUtil;
 import com.ckk.demo.monomer.common.vo.Page;
 import com.ckk.demo.monomer.dal.entity.TestEntity;
+import com.ckk.demo.monomer.dal.entity.UserEntity;
 import com.ckk.demo.monomer.dal.mapper.TestMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -60,6 +62,8 @@ public class TestController {
         page.setTotal(new PageInfo<>(resultList).getTotal());
         page.setRecords(resultList);
         log.info("分页测试");
+        UserEntity entity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info(entity.getUsername()+entity.getPhoneNum()+"___"+entity.getPassword());
         return Result.succ(page);
     }
 
