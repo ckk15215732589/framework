@@ -1,13 +1,10 @@
 package com.ckk.demo.monomer.filter;
 
 import com.ckk.demo.monomer.common.utils.JwtTokenUtil;
-import com.ckk.demo.monomer.dal.entity.UserEntity;
 import com.ckk.demo.monomer.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
